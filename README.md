@@ -86,3 +86,26 @@ CUDA_VISIBLE_DEVICES=0 python3 Fine-Tuning/run_classifier.py \
     --use_test_input_history \
     --use_test_res_history
 ```
+# json形式
+```
+{"author_name":
+    [
+        {
+            "Example": "1789",
+            "author/0": "Raiichu_LoL",　※context/0のauthor 存在しない場合あり
+            "context_author": "Lee1100",　※Contextのauthor
+            "context_created_utc": "1535770782",
+            "created_utc/0": "1535770504",　※context/0の時間　存在しない場合あり
+            "response_author": "OrangeAndBlack",　※Responseのauthor
+            "response_created_utc": "1535804229",
+            "selftext": "",
+            "subreddit": "nfl",
+            "thread_id": "9bzqj9",
+            "title": "[Trotter] Can’t believe the Raiders would be crazy enough to seriously consider trading Mack, but I’m hearing offers are coming in and they’re weighing them. Strange considering people in org call Mack their best player. Not best defensive player. But player. Period."
+            "context/0": "This feels like Odell all over again. The regular season needs to start ASAP.", 　※キーが存在しない場合あり。最大context/9
+            "Context": "It's impossible at the moment, but can you imagine him on the Eagles with their D-Line?",
+            "Response": "I can, but I want to be able to afford Wentz in 3 years..."
+    }
+    ]
+}
+```
