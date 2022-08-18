@@ -109,3 +109,5 @@ CUDA_VISIBLE_DEVICES=0 python3 Fine-Tuning/run_classifier.py \
     ]
 }
 ```
+# ファイル
+https://www.dropbox.com/s/r3s5ika0i423tq8/reddit_nfl_data.zip?dl=0
