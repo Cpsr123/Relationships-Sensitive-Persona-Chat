@@ -94,7 +94,7 @@ CUDA_VISIBLE_DEVICES=0 python3 Fine-Tuning/run_classifier.py \
 CUDA_VISIBLE_DEVICES=0 python3 Fine-Tuning/run_classifier.py \
     --responses_tsv /reddit_nfl_data/201809101112_20190102_nfl_minill3_test_responses.tsv\
     --output_dir Fine-Tuning/fine-tuning \
-    --load_checkpoint ./reddit_nfl_data/bert.pt \
+    --load_checkpoint ./rspc_bert.pt \
     --target_train_authors /reddit_nfl_data/author_list_min20_201809101112_20190102_nfl_minill3_train.txt \
     --target_dev_authors /reddit_nfl_data/author_list_min20_201809101112_20190102_nfl_minill3_test.txt \
     --train_data_path /reddit_nfl_data/201809101112_20190102_nfl_minill3_train.json \
