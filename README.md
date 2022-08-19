@@ -59,7 +59,7 @@ pip3 install tqdm==4.62.3 \
              transformers==4.16.2
 ```
 
-# Pre-training command
+# Pre-training
 ```
 CUDA_VISIBLE_DEVICES=0 python3 Pre-training/run_classifier.py \
     --num_train_epochs 10 \
@@ -70,7 +70,7 @@ CUDA_VISIBLE_DEVICES=0 python3 Pre-training/run_classifier.py \
     --use_input_history \
     --use_res_history
 ```
-# Fine-Tuning command
+# Fine-Tuning
 ```
 CUDA_VISIBLE_DEVICES=0 python3 Fine-Tuning/run_classifier.py \
     --num_train_epochs 5 \
@@ -89,7 +89,7 @@ CUDA_VISIBLE_DEVICES=0 python3 Fine-Tuning/run_classifier.py \
     --use_test_res_history
 ```
 
-Reproduce the results of our Model (RSPC) for NFL dataset.  
+# Reproduce the results of our Model (RSPC) for NFL dataset.  
 Download the checkpoint file for RSPC(kc=10,kr=10,l=15) and place it under the checkpoint directory (it is the current directory in the foloowing command):
 ```
 CUDA_VISIBLE_DEVICES=0 python3 Fine-Tuning/run_classifier.py \
