@@ -1,7 +1,16 @@
-# ファイル
+# Reddit data set
+download the data here:  
 https://www.dropbox.com/s/r3s5ika0i423tq8/reddit_nfl_data.zip?dl=0
+```
+201809101112_20190102_nfl_minill3_train.json ※train data
+201809101112_20190102_nfl_minill3_test.json ※test data
+201809101112_20190102_nfl_minill3_test_responses.tsv ※test data(positive1:negative9)
+author_list_all_201809101112_20190102_nfl_minill3.txt ※all authors
+author_list_min20_201809101112_20190102_nfl_minill3_train.txt ※target train authors
+author_list_min20_201809101112_20190102_nfl_minill3_test.txt ※target test authors
+```
 
-# json format
+# Json format
 The example of format of the dataset is as below:
 ```
 {"author_name":
@@ -26,7 +35,7 @@ The example of format of the dataset is as below:
 }
 ```
 
-# 環境構築
+# Execution environment construction
 ```
 sudo nvidia-docker run -it -d --name LRF-HAIS-reddit \
               nvidia/cuda:11.0.3-devel-ubuntu20.04 \
@@ -50,19 +59,10 @@ pip3 install tqdm==4.62.3 \
              transformers==4.16.2
 ```
 
-# 実行コマンド(Pre-training)
+# Pre-training command
 ```
 CUDA_VISIBLE_DEVICES=0 python3 Pre-training/run_classifier.py \
     --num_train_epochs 10 \
-    --train_batch_size 32 \
-    --learning_rate 1e-5 \
-    --bert_model bert-base-uncased \
-    --train_convert_pattern 1 \
-    --ctx_loop_count 10 \
-    --res_loop_count 3 \
-    --max_slide_num 15 \
-    --src_length 50 \
-    --res_length 30 \
     --output_dir Pre-training/training \
     --target_train_authors /reddit_nfl_data/author_list_min20_201809101112_20190102_nfl_minill3_train.txt \
     --train_data_path /reddit_nfl_data/201809101112_20190102_nfl_minill3_train.json \
@@ -70,21 +70,11 @@ CUDA_VISIBLE_DEVICES=0 python3 Pre-training/run_classifier.py \
     --use_input_history \
     --use_res_history
 ```
-# 実行コマンド(Fine-Tuning)
+# Fine-Tuning command
 ```
 CUDA_VISIBLE_DEVICES=0 python3 Fine-Tuning/run_classifier.py \
     --num_train_epochs 5 \
     --responses_tsv /reddit_nfl_data/201809101112_20190102_nfl_minill3_test_responses.tsv\
-    --train_batch_size 32 \
-    --learning_rate 1e-5 \
-    --bert_model bert-base-uncased \
-    --train_convert_pattern 1 \
-    --ctx_loop_count 10 \
-    --res_loop_count 3 \
-    --max_slide_num 15 \
-    --src_length 50 \
-    --res_length 30 \
-    --eval_convert_pattern 4 \
     --output_dir Fine-Tuning/fine-tuning \
     --load_checkpoint ./Pre-training/training/checkpoint10/bert.pt \
     --target_train_authors /reddit_nfl_data/author_list_min20_201809101112_20190102_nfl_minill3_train.txt \
