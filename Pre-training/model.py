@@ -160,7 +160,7 @@ class RedditLMF(nn.Module):
         self.response_semantic_layer_1 = copy.deepcopy(layer)
 
         self.norm = nn.LayerNorm(config.hidden_size)
-
+    # (3)History embedding builder
     def history_context_direct(self, latest_hidden_states,
                         source_ids, source_attention_mask, source_token_type_ids, source_utterance_ids,
                         response_ids, response_attention_mask, response_token_type_ids, response_utterance_ids,
@@ -222,7 +222,7 @@ class RedditLMF(nn.Module):
                 h = hidden_states
             else:
                 h = history_list[index - 1]
-
+            # (4)Persona-incorporated context/response builder
             if source_flag:
                 # h_n = ST(h_n-1, c_n) + c_n
                 history = self.source_his_layer_1(h, hidden_states)
@@ -469,7 +469,7 @@ class RedditLMF(nn.Module):
             all_embedding = self.res_layers_1(all_embedding, response_context_history_embedding)
         if args.use_input_history:
             all_embedding = self.res_layers_2(all_embedding, source_context_history_embedding)
-        
+        # (5)Matching module
         outputs = self.bert_1(inputs_embeds=all_embedding)
 
         prediction_logits = outputs.prediction_logits
