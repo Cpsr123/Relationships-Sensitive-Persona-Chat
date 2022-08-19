@@ -529,8 +529,7 @@ def worker(proc_arg):
 
     item, responses, author, ctx_num_history, res_num_history, max_num_context, src_length, res_length, sem_length, \
         max_src_length, max_res_length, max_sem_length, tokenizer, pattern, sem_type, use_mlm, all_author_list = proc_arg
-    # 水増しなし（テスト用）
-    # 水増しなし
+
 
 
     ctx_item = item.get('ctx_histories')
@@ -830,9 +829,6 @@ def pbar_listen(total, desc, queue):
         pbar.update()
 
 def convert_reddit_to_features(reddit: Reddit, src_length, res_length, sem_length, tokenizer, ctx_loop_count=3, res_loop_count=3, pattern=0, sem_type=0, responses=None, use_mlm=False, cpu_process_num=6, all_author_list=None):
-    '''
-    pattern (int): 0:水増しなし, 1:1個ずらし、2:loop可変、3:1個ずらし+loop可変、4:水増しなし（テスト用）
-    '''
     semantic_tokens_list, source_tokens_list, response_tokens_list = [], [], []
     semantic_attention_mask_list, source_attention_mask_list, response_attention_mask_list = [], [], []
     semantic_segment_ids_list, source_segment_ids_list, response_segment_ids_list = [], [], []
@@ -854,11 +850,9 @@ def convert_reddit_to_features(reddit: Reddit, src_length, res_length, sem_lengt
     max_sem_length = sem_length - 2 - 1
 
     if pattern == 4 and not responses:
-        # レスポンスリストが渡されなければ、レスポンスはランダムで作成する。
         pattern == 0
 
     if pattern != 4 or not responses:
-        # ランダム用のレスポンスリストを作成する。
         responses = []
         for idx, key in enumerate(reddit):
             items = reddit.author_dialog[idx]
@@ -1033,12 +1027,6 @@ def load_responses(data_dir):
 
 
 def get_json_data(authors, json_data_path, max_slide_num=10, ctx_loop_count=5, res_loop_count=5, pattern=0, responses=None):
-    '''
-    authors: authorのリスト。Noneの場合はredisから取得する。
-    type: 作成データの種類。0:train, 1:test
-    loop_count: 履歴の数
-    pattern: 水増しパターン。0: 水増しなし、1: １個ずらし、2: ループ可変、3: 混合
-    '''
     # print(authors)
     print(f'get_json_start: {time.time()}')
     # json_data_path = '/work/data/reddit_nfl/201809101112_20190102_nfl_minill3_test.json' if type == 1 else '/work/data/reddit_nfl/201809101112_20190102_nfl_minill3_train.json'
@@ -1053,6 +1041,8 @@ def get_json_data(authors, json_data_path, max_slide_num=10, ctx_loop_count=5, r
     print(f'get_json_json_data_read: {time.time()}')
     author_list = None
     extended_author_list = None
+    
+    # (1)C-R alignment module
     if author_list_path is None:
         author_list = [k for k in json_data]
         extended_author_list = author_list
@@ -1077,8 +1067,6 @@ def get_json_data(authors, json_data_path, max_slide_num=10, ctx_loop_count=5, r
         author_histories = sorted(author_histories, key=lambda x: x['context_created_utc'])
         authors_histories[author] = author_histories
     print(f'get_json_authors_histories_calculated: {time.time()}')
-
-    # ここまで、authors_historiesを作った。authors_hitoriesはパラメータによって変わらない（trainかtestかのみで変わる）ので、pklなどに入れておけばここまでのしょりをもうちょい高速化出来るかも
     r = authors_histories
 
     redis_data = {}
@@ -1094,7 +1082,7 @@ def get_json_data(authors, json_data_path, max_slide_num=10, ctx_loop_count=5, r
         authors = set(authors)
 
     for author in tqdm(authors, desc="get_json_data"):
-
+        # (2)Data augmentation module
         if pattern == 1:
 
             for i in range(max_slide_num):
@@ -1146,11 +1134,6 @@ def index_by_predicate(lst, pred):
     return None
 
 def get_author_data(r, context_author, ctx_loop_count, res_loop_count, start=0, do_cut=True):
-    '''
-    context_author: author
-    loop_count: loop_count
-    start: 開始位置（直近から数える）
-    '''
     ctx_histories = r[context_author]
     num_ctx_histories = len(ctx_histories)
     ctx_histories = ctx_histories[
@@ -1159,10 +1142,8 @@ def get_author_data(r, context_author, ctx_loop_count, res_loop_count, start=0, 
     num_ctx_histories = len(ctx_histories)
 
     if do_cut and num_ctx_histories != ctx_loop_count:
-        # データがない場合は中断
         return None
 
-    # 該当histのResponse情報取得
     history = ctx_histories[-1]
     res_author = history['response_author']
     res_histories = []
@@ -1185,7 +1166,6 @@ def get_collect_res_history_data(r, context_author, ctx_loop_count, res_loop_cou
     num_ctx_histories = len(ctx_histories)
 
     if do_cut and num_ctx_histories != ctx_loop_count:
-        # データがない場合は中断
         return None
 
     if not responses:
