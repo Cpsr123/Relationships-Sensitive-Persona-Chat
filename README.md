@@ -20,22 +20,6 @@ pip3 install tqdm==4.62.3 \
              sklearn==0.0 \
              matplotlib==3.5.1 \
              transformers==4.16.2
-
-
-日本語環境設定
-apt install -y tzdata && \
-    ln -sf /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
-以下選択
-6. Asia
-	79. Tokyo
-
-apt install -y language-pack-ja-base language-pack-ja ibus-mozc
-以下選択
-55. Japanese
-	1. Japanese
-
-echo 'export LANG=ja_JP.UTF-8' | tee -a ~/.bashrc
-echo 'export LANGUAGE=ja_JP:ja' | tee -a ~/.bashrc
 ```
 
 # 実行コマンド(Pre-training)
