@@ -1,7 +1,8 @@
 # ファイル
 https://www.dropbox.com/s/r3s5ika0i423tq8/reddit_nfl_data.zip?dl=0
 
-# json形式
+# json format
+The example of format of the dataset is as below:
 ```
 {"author_name":
     [
