@@ -92,7 +92,6 @@ CUDA_VISIBLE_DEVICES=0 python3 Fine-Tuning/run_classifier.py \
 # Precision reproduction command
 ```
 CUDA_VISIBLE_DEVICES=0 python3 Fine-Tuning/run_classifier.py \
-    --num_train_epochs 5 \
     --responses_tsv /reddit_nfl_data/201809101112_20190102_nfl_minill3_test_responses.tsv\
     --output_dir Fine-Tuning/fine-tuning \
     --load_checkpoint ./reddit_nfl_data/bert.pt \
@@ -105,6 +104,7 @@ CUDA_VISIBLE_DEVICES=0 python3 Fine-Tuning/run_classifier.py \
     --use_train_input_history \
     --use_train_res_history \
     --use_test_input_history \
-    --use_test_res_history
+    --use_test_res_history \
+    --do_train False
 ```
 ```
