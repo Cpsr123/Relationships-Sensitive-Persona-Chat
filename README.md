@@ -1,13 +1,13 @@
 # Reddit dataset (NFL)
-download the data here:  
+Download the dataset from the following dropbox:  
 https://www.dropbox.com/s/r3s5ika0i423tq8/reddit_nfl_data.zip?dl=0
 ```
-201809101112_20190102_nfl_minill3_train.json ※train data
-201809101112_20190102_nfl_minill3_test.json ※test data
-201809101112_20190102_nfl_minill3_test_responses.tsv ※test data(positive1:negative9)
-author_list_all_201809101112_20190102_nfl_minill3.txt ※all authors
-author_list_min20_201809101112_20190102_nfl_minill3_train.txt ※target train authors
-author_list_min20_201809101112_20190102_nfl_minill3_test.txt ※target test authors
+201809101112_20190102_nfl_minill3_train.json % The training dataset
+201809101112_20190102_nfl_minill3_test.json % The test dataset
+201809101112_20190102_nfl_minill3_test_responses.tsv % Response candidate set (positive1:negative9)
+author_list_all_201809101112_20190102_nfl_minill3.txt % All speaker IDs
+author_list_min20_201809101112_20190102_nfl_minill3_train.txt % Target training speaker IDs
+author_list_min20_201809101112_20190102_nfl_minill3_test.txt % Target test speaker IDs
 ```
 
 # Json format
@@ -16,19 +16,19 @@ The example of the format of the dataset is as below:
 {"author_name":
     [
         {
-            "Example": "1789",   ※ID
-            "author/0": "Raiichu_LoL",　※speaker of the previous utterance of the current utterance
-            "context_author": "Lee1100",　※speaker of the current utterance
+            "Example": "1789",   % ID
+            "author/0": "Raiichu_LoL",　% Speaker of the previous utterance of the current utterance
+            "context_author": "Lee1100",　% Speaker of the current utterance
             "context_created_utc": "1535770782", 
             "created_utc/0": "1535770504",　
-            "response_author": "OrangeAndBlack",　※Responder
+            "response_author": "OrangeAndBlack",　% Responder
             "response_created_utc": "1535804229",
             "selftext": "",
             "subreddit": "nfl",
             "thread_id": "9bzqj9",
             "title": "[Trotter] Can’t believe the Raiders would be crazy enough to seriously consider trading Mack, but I’m hearing offers are coming in and they’re weighing them. Strange considering people in org call Mack their best player. Not best defensive player. But player. Period."  
-            "context/0": "This feels like Odell all over again. The regular season needs to start ASAP.", 　※ The previous utterance of the current utterance
-            "Context": "It's impossible at the moment, but can you imagine him on the Eagles with their D-Line?",   ※ Current utterance
+            "context/0": "This feels like Odell all over again. The regular season needs to start ASAP.",  % The previous utterance of the current utterance
+            "Context": "It's impossible at the moment, but can you imagine him on the Eagles with their D-Line?",   % Current utterance
             "Response": "I can, but I want to be able to afford Wentz in 3 years..."
         }
     ]
@@ -90,7 +90,7 @@ CUDA_VISIBLE_DEVICES=0 python3 Fine-Tuning/run_classifier.py \
 ```
 
 Reproduce the results of our Model (RSPC) for NFL dataset.  
-Download the checkpoint files for RSPC(kc=10,kr=10,l=15) and place them under the checkpoint directory:
+Download the checkpoint file for RSPC(kc=10,kr=10,l=15) and place it under the checkpoint directory (it is the current directory in the foloowing command):
 ```
 CUDA_VISIBLE_DEVICES=0 python3 Fine-Tuning/run_classifier.py \
     --responses_tsv /reddit_nfl_data/201809101112_20190102_nfl_minill3_test_responses.tsv\
