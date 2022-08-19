@@ -90,7 +90,9 @@ CUDA_VISIBLE_DEVICES=0 python3 Fine-Tuning/run_classifier.py \
 ```
 
 # Reproduce the results of our Model (RSPC) for NFL dataset.  
-Download the checkpoint file for RSPC(kc=10,kr=10,l=15) and place it under the checkpoint directory (it is the current directory in the foloowing command):
+Download the checkpoint file for RSPC(kc=10,kr=10,l=15) from the following URL and place it under the checkpoint directory (it is the current directory in the foloowing command):
+
+
 ```
 CUDA_VISIBLE_DEVICES=0 python3 Fine-Tuning/run_classifier.py \
     --responses_tsv /reddit_nfl_data/201809101112_20190102_nfl_minill3_test_responses.tsv\
