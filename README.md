@@ -1,6 +1,6 @@
 # Reddit dataset (NFL)
 Download the dataset from the following dropbox:  
-https://www.dropbox.com/s/r3s5ika0i423tq8/reddit_nfl_data.zip?dl=0
+https://www.dropbox.com/s/vp3n4zqhyshx8er/reddit_nfl_data.zip?dl=0
 ```
 201809101112_20190102_nfl_minill3_train.json % The training dataset
 201809101112_20190102_nfl_minill3_test.json % The test dataset
