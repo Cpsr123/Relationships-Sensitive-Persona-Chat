@@ -1,4 +1,4 @@
-# Reddit data set
+# Reddit dataset (NFL)
 download the data here:  
 https://www.dropbox.com/s/r3s5ika0i423tq8/reddit_nfl_data.zip?dl=0
 ```
@@ -11,7 +11,7 @@ author_list_min20_201809101112_20190102_nfl_minill3_test.txt ※target test auth
 ```
 
 # Json format
-The example of format of the dataset is as below:
+The example of the format of the dataset is as below:
 ```
 {"author_name":
     [
@@ -35,7 +35,7 @@ The example of format of the dataset is as below:
 }
 ```
 
-# Execution environment construction
+# Setup
 ```
 sudo nvidia-docker run -it -d --name LRF-HAIS-reddit \
               nvidia/cuda:11.0.3-devel-ubuntu20.04 \
@@ -89,7 +89,8 @@ CUDA_VISIBLE_DEVICES=0 python3 Fine-Tuning/run_classifier.py \
     --use_test_res_history
 ```
 
-# Precision reproduction command
+# Reproduce the results of our Model (RSPC) for NFL dataset.
+Download the checkpoint files for RSPC(kc=10,kr=10,l=15) and place them under the checkpoint directory:
 ```
 CUDA_VISIBLE_DEVICES=0 python3 Fine-Tuning/run_classifier.py \
     --responses_tsv /reddit_nfl_data/201809101112_20190102_nfl_minill3_test_responses.tsv\
@@ -106,5 +107,4 @@ CUDA_VISIBLE_DEVICES=0 python3 Fine-Tuning/run_classifier.py \
     --use_test_input_history \
     --use_test_res_history \
     --do_train False
-```
 ```
