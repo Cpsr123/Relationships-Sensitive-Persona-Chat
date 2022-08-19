@@ -89,4 +89,22 @@ CUDA_VISIBLE_DEVICES=0 python3 Fine-Tuning/run_classifier.py \
     --use_test_res_history
 ```
 
-
+# Precision reproduction command
+```
+CUDA_VISIBLE_DEVICES=0 python3 Fine-Tuning/run_classifier.py \
+    --num_train_epochs 5 \
+    --responses_tsv /reddit_nfl_data/201809101112_20190102_nfl_minill3_test_responses.tsv\
+    --output_dir Fine-Tuning/fine-tuning \
+    --load_checkpoint ./reddit_nfl_data/bert.pt \
+    --target_train_authors /reddit_nfl_data/author_list_min20_201809101112_20190102_nfl_minill3_train.txt \
+    --target_dev_authors /reddit_nfl_data/author_list_min20_201809101112_20190102_nfl_minill3_test.txt \
+    --train_data_path /reddit_nfl_data/201809101112_20190102_nfl_minill3_train.json \
+    --dev_data_path /reddit_nfl_data/201809101112_20190102_nfl_minill3_test.json \
+    --author_list_path /reddit_nfl_data/author_list_all_201809101112_20190102_nfl_minill3.txt \
+    --score_file_path Fine-Tuning/training/scores \
+    --use_train_input_history \
+    --use_train_res_history \
+    --use_test_input_history \
+    --use_test_res_history
+```
+```
