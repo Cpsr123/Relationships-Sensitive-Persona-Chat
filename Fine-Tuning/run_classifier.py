@@ -67,8 +67,8 @@ def main(i):
     # parser.add_argument("--data_dir", default='nttcp', type=str)
    # parser.add_argument("--data_dir", default='msc_v2', type=str,
     #                    help="The input data dir. Should contain the .tsv files (or other data files) for the task.")
-    # parser.add_argument("--bert_model", default='../bert-base-japanese-whole-word-masking', type=st)
-    parser.add_argument("--bert_model", default='./pretrained', type=str,
+    # parser.add_argument("--bert_model", default='bert-base-uncased', type=st)
+    parser.add_argument("--bert_model", default='bert-base-uncased', type=str,
                         help="Bert pre-trained model selected in the list: bert-base-uncased, "
                         "bert-large-uncased, bert-base-cased, bert-large-cased, bert-base-multilingual-uncased, "
                         "bert-base-multilingual-cased, bert-base-chinese.")
@@ -80,11 +80,11 @@ def main(i):
     ## Other parameters
     parser.add_argument("--cache_dir", default="", type=str,
                         help="Where do you want to store the pre-trained models downloaded from s3")
-    parser.add_argument("--src_length", default=35, type=int,
+    parser.add_argument("--src_length", default=50, type=int,
                         help="The maximum total input sequence length after WordPiece tokenization. \n"
                              "Sequences longer than this will be truncated, and sequences shorter \n"
                              "than this will be padded.")
-    parser.add_argument("--res_length", default=25, type=int,
+    parser.add_argument("--res_length", default=30, type=int,
                         help="The maximum total input sequence length after WordPiece tokenization. \n"
                              "Sequences longer than this will be truncated, and sequences shorter \n"
                              "than this will be padded.")
@@ -98,13 +98,13 @@ def main(i):
                         help="Whether to run eval on the dev set.")
     parser.add_argument("--do_lower_case", default=True,
                         help="Set this flag if you are using an uncased model.")
-    parser.add_argument("--train_batch_size", default=50, type=int,
+    parser.add_argument("--train_batch_size", default=32, type=int,
                         help="Total batch size for training.")
     parser.add_argument("--eval_batch_size", default=50, type=int,
                         help="Total batch size for eval.")
     #parser.add_argument("--test_batch_size", default=5, type=int,
     #                    help="Total batch size for test.")
-    parser.add_argument("--learning_rate", default=2e-5, type=float,
+    parser.add_argument("--learning_rate", default=1e-5, type=float,
                         help="The initial learning rate for Adam.5e-5")
     parser.add_argument("--num_train_epochs", default=3.0, type=float,
                         help="Total number of training epochs to perform.")
@@ -118,10 +118,10 @@ def main(i):
     parser.add_argument('--gradient_accumulation_steps', type=int, default=1,
                         help="Number of updates steps to accumulate before performing a backward/update pass.")
     parser.add_argument('--score_file_path', type=str, default='Cross-Modal-BERT-master/msc_output/scores')
-    parser.add_argument('--ctx_loop_count', type=int, default=5)
-    parser.add_argument('--res_loop_count', type=int, default=5)
-    parser.add_argument('--max_slide_num', type=int, default=10)
-    parser.add_argument('--train_convert_pattern', type=int, default=0)
+    parser.add_argument('--ctx_loop_count', type=int, default=10)
+    parser.add_argument('--res_loop_count', type=int, default=10)
+    parser.add_argument('--max_slide_num', type=int, default=15)
+    parser.add_argument('--train_convert_pattern', type=int, default=1)
     parser.add_argument('--eval_convert_pattern', type=int, default=4)
     parser.add_argument('--test_convert_pattern', type=int, default=4)
 
